@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,8 @@ public class AddNote extends AppCompatActivity {
     private static final int FILE = 2;
     Button back;
 
+    ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,7 @@ public class AddNote extends AppCompatActivity {
         note = (EditText) findViewById(R.id.edtnote);
         amount = (EditText) findViewById(R.id.edtamount);
         category = findViewById(R.id.spinnerCategory);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddNote.this,
+        adapter = new ArrayAdapter<String>(AddNote.this,
                 android.R.layout.simple_spinner_item, pathIncome);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -100,7 +103,7 @@ public class AddNote extends AppCompatActivity {
                     addincome.setTextColor(ContextCompat.getColor(AddNote.this, R.color.white));
                     addexp.setBackground(ContextCompat.getDrawable(AddNote.this, R.color.white));
                     addexp.setTextColor(ContextCompat.getColor(AddNote.this, R.color.black));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddNote.this,
+                    adapter = new ArrayAdapter<String>(AddNote.this,
                             android.R.layout.simple_spinner_item, pathIncome);
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -124,7 +127,7 @@ public class AddNote extends AppCompatActivity {
                     addexp.setTextColor(ContextCompat.getColor(AddNote.this, R.color.white));
                     addincome.setBackground(ContextCompat.getDrawable(AddNote.this, R.color.white));
                     addincome.setTextColor(ContextCompat.getColor(AddNote.this, R.color.black));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddNote.this,
+                    adapter = new ArrayAdapter<String>(AddNote.this,
                             android.R.layout.simple_spinner_item, pathExpenses);
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -150,10 +153,15 @@ public class AddNote extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbcenter.addtransaction(date.getText().toString(), income, category.getSelectedItem().toString(), Integer.parseInt(user.get(sessionManagement.KEY_ID_USER)),
-                        Integer.parseInt(amount.getText().toString()),note.getText().toString());
-                Intent m = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(m);
+                if(amount.getText().toString().trim().equals("")|| date.getText().toString().trim().equals("")) {
+                    Toast.makeText(AddNote.this, "Fill all the neccesary field", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    dbcenter.addtransaction(date.getText().toString(), income, category.getSelectedItem().toString(), Integer.parseInt(user.get(sessionManagement.KEY_ID_USER)),
+                            Integer.parseInt(amount.getText().toString()),note.getText().toString());
+                    Intent m = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(m);
+                }
 
             }
         });
@@ -180,7 +188,7 @@ public class AddNote extends AppCompatActivity {
         //}
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (this.version == requestCode && resultCode == RESULT_OK) { //jika
+        if (this.version == requestCode && resultCode == RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             imgnote.setImageBitmap(bitmap);
             imgnote.setMinimumHeight(170);

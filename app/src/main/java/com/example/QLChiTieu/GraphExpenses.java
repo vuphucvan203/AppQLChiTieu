@@ -25,10 +25,12 @@ import lecho.lib.hellocharts.view.PieChartView;
 
 public class GraphExpenses extends AppCompatActivity {
     Cursor cursor;
-    PieChartView pieChartView;
     DatabaseHelper dbcenter;
     SessionManagement sessionManagement;
     Button back;
+    PieDataSet pieDataSet;
+    PieData pieData;
+    PieChart pieChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class GraphExpenses extends AppCompatActivity {
         setContentView(R.layout.activity_graph_expenses);
 
         back = findViewById(R.id.back);
-        PieChart pieChart = findViewById(R.id.pieChart);
+        pieChart = findViewById(R.id.pieChart);
         dbcenter = new DatabaseHelper(this);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -74,16 +76,27 @@ public class GraphExpenses extends AppCompatActivity {
             }
         }
 
-        PieDataSet pieDataSet = new PieDataSet(visitors, "EXPENSES GRAPHIC");
+        pieDataSet = new PieDataSet(visitors, "EXPENSES GRAPHIC");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextColor(Color.BLACK);
         pieDataSet.setValueTextSize(16f);
 
-        PieData pieData = new PieData(pieDataSet);
+        pieData = new PieData(pieDataSet);
 
         pieChart.setData(pieData);
         pieChart.getDescription().setEnabled(false);
         pieChart.setCenterText("EXPENSES GRAPHIC BAR");
         pieChart.animate();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pieChart.clearAnimation();
+        pieChart.clear();
+        pieDataSet.clear();
+        pieData.clearValues();
+        dbcenter.close();
+    }
+
 }

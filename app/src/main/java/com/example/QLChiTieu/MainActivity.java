@@ -27,16 +27,15 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    TextView tvIncome, tvExpanses, tvBalance, tvEmail, tvUser;
+    TextView tvIncome, tvExpanses, tvBalance, tvUser;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    Button btnadd;
     Cursor cursor;
     private SessionManagement sessionManagement;
     RecyclerView rv;
     private ArrayList<String> dataId,dataDate, dataNote, dataAmount, dataIncome;
     DatabaseHelper dbcenter;
-    String id="";
+    String id="",username ="";
 
     public static String CURRENCY;
 
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvIncome = findViewById(R.id.income);
         tvExpanses = findViewById(R.id.expenses);
         tvBalance=findViewById(R.id.balance);
-        tvEmail = findViewById(R.id.txtemail);
-        tvUser = findViewById(R.id.txtusername);
 
         dataId = new ArrayList<>();
         dataDate = new ArrayList<>();
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(sessionManagement.isLoggedIn()) {
             final HashMap<String, String> user = sessionManagement.getUserInformation();
+            username = user.get(sessionManagement.KEY_USERNAME);
             CURRENCY = user.get(sessionManagement.KEY_CURRENCY);
             SQLiteDatabase db = dbcenter.getReadableDatabase();
             int i = 0;
@@ -115,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Intent m = new Intent(getApplicationContext(), AddNote.class);
                 startActivity(m);
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -126,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        tvUser = navigationView.getHeaderView(0).findViewById(R.id.txtusername);
+        tvUser.setText("Hello " + username + " !");
     }
 
     private void initDataset() {

@@ -22,11 +22,9 @@
         <RelativeLayout
             android:layout_width="350dp"
             android:layout_height="match_parent"
-            android:background="@drawable/bgmobiletipis"
             android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:paddingTop="27dp"
-            >
+            android:paddingEnd="10dp">
 
             <TextView
                 android:id="@+id/txtincome"
@@ -45,8 +43,8 @@
                 android:layout_toRightOf="@id/txtincome"
                 android:fontFamily="@font/futura_pt_demibold"
                 android:text="EXPENSES"
-                android:textColor="#1565C0"
                 android:textAlignment="center"
+                android:textColor="#1565C0"
                 android:textSize="20dp" />
 
             <TextView
@@ -56,8 +54,8 @@
                 android:layout_toRightOf="@id/txtexp"
                 android:fontFamily="@font/futura_pt_demibold"
                 android:text="BALANCE"
-                android:textColor="#1565C0"
                 android:textAlignment="center"
+                android:textColor="#1565C0"
                 android:textSize="20dp" />
 
             <TextView
@@ -109,10 +107,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main"
-            android:background="@drawable/bgmobiletipis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </androidx.cardview.widget.CardView>
 
 

@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bgmobile"
     tools:context="com.example.QLChiTieu.Login">
 
     <ImageView
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:scaleType="fitXY"
         android:layout_gravity="center"
+        android:scaleType="fitXY"
         android:src="@drawable/logocircle" />
 
     <TextView
@@ -41,7 +40,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:background="@drawable/rounded_edittext_states"
-        android:hint="Email "
+        android:hint="Account"
         android:maxLines="1"
         android:paddingStart="15dp"
         android:textColor="@color/black" />

@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,11 +35,12 @@ public class UpdateNote extends AppCompatActivity {
     private EditText tvDateResult;
     private Button btDatePicker , save;
     EditText date, note, amount;
-    String imageFilePath;
+    //String imageFilePath;
     String income = "Income";
     SessionManagement sessionManagement;
     DatabaseHelper dbcenter;
     Button back;
+    ArrayAdapter<String> adapter;
 
     private static final String[] pathIncome = {"Salary", "Bonus", "Allowance", "Petty cash", "Other"};
     private static final String[] pathExpenses = {"Food", "Social Life", "Transportation", "Gift", "Health", "Other"};
@@ -90,7 +92,7 @@ public class UpdateNote extends AppCompatActivity {
                 addexp.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.black));
 
                 //Fill in adapter
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateNote.this,
+                adapter = new ArrayAdapter<String>(UpdateNote.this,
                         android.R.layout.simple_spinner_item, pathIncome);
 
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -112,7 +114,7 @@ public class UpdateNote extends AppCompatActivity {
                 addexp.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.white));
                 addincome.setBackground(ContextCompat.getDrawable(UpdateNote.this, R.color.white));
                 addincome.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.black));
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateNote.this,
+                adapter = new ArrayAdapter<String>(UpdateNote.this,
                         android.R.layout.simple_spinner_item, pathExpenses);
 
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -142,7 +144,7 @@ public class UpdateNote extends AppCompatActivity {
                     addincome.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.white));
                     addexp.setBackground(ContextCompat.getDrawable(UpdateNote.this, R.color.white));
                     addexp.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.black));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateNote.this,
+                    adapter = new ArrayAdapter<String>(UpdateNote.this,
                             android.R.layout.simple_spinner_item, pathIncome);
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -167,7 +169,7 @@ public class UpdateNote extends AppCompatActivity {
                     addexp.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.white));
                     addincome.setBackground(ContextCompat.getDrawable(UpdateNote.this, R.color.white));
                     addincome.setTextColor(ContextCompat.getColor(UpdateNote.this, R.color.black));
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(UpdateNote.this,
+                    adapter = new ArrayAdapter<String>(UpdateNote.this,
                             android.R.layout.simple_spinner_item, pathExpenses);
 
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -180,10 +182,16 @@ public class UpdateNote extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbcenter.updatetransaction(Integer.parseInt(id),date.getText().toString(), income, category.getSelectedItem().toString(), Integer.parseInt(user.get(sessionManagement.KEY_ID_USER)),
-                        Integer.parseInt(amount.getText().toString()), note.getText().toString());
-                Intent m = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(m);
+                if(amount.getText().toString().trim().equals("")|| date.getText().toString().trim().equals("")) {
+                    Toast.makeText(UpdateNote.this, "Fill all the necessary field", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    dbcenter.updatetransaction(Integer.parseInt(id),date.getText().toString(), income, category.getSelectedItem().toString(), Integer.parseInt(user.get(sessionManagement.KEY_ID_USER)),
+                            Integer.parseInt(amount.getText().toString()), note.getText().toString());
+                    Intent m = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(m);
+                }
+
             }
         });
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);

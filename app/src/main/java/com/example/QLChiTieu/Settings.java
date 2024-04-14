@@ -23,6 +23,7 @@ public class Settings extends AppCompatActivity {
     DatabaseHelper dbcenter;
     Cursor cursor;
     private ArrayList<Integer> dataAmount,dataAmountBackUp;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         changeCurr = findViewById(R.id.changCurrSpinner);
         dbcenter = new DatabaseHelper(this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Settings.this,
+        adapter = new ArrayAdapter<String>(Settings.this,
                 android.R.layout.simple_spinner_item, currency);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         changeCurr.setAdapter(adapter);
