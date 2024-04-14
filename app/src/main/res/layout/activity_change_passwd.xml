@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangePasswd">
+
+    <EditText
+        android:id="@+id/currpassword"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/rounded_edittext_states"
+        android:hint="Current Password"
+        android:inputType="textPassword"
+
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/newpassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/newpassword"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="76dp"
+        android:background="@drawable/rounded_edittext_states"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+
+        android:paddingStart="15dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/confirmnewpass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/confirmnewpass"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/rounded_edittext_states"
+        android:hint="Confirm New Password"
+        android:inputType="textPassword"
+        android:paddingStart="15dp"
+
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnconfirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnconfirm"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="104dp"
+        android:backgroundTint="@color/black"
+        android:onClick="changePasswd"
+        android:padding="15dp"
+        android:text="Confirm"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>
